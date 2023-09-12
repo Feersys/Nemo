@@ -1,8 +1,9 @@
-class Menu:
-    def __init__(self, ppt, nump, pay):
-        self.ppt = ppt
-        self.nump = nump
-        self.pay = pay
+class Table:
+    def __init__(self, seats, persons, bill):
+        self.seats = seats
+        self.persons = persons
+        self.bill = bill
+        self.is_reserved = False
 
     def payment(self):
         pass
@@ -12,14 +13,13 @@ class Menu:
         self.pay += add
         print("К счёту добавленна сумма: ", add)
 
-    def seat(self):
+    def reserve(self, persons):
         table = int(input("Введите номер столика: "))
-        if tables[table] == False:
+        if self.is_reserved:
             print("Этот столик уже занят. ")
-            pass
-        person = int(input("Введите количество персон"))
-        if person > 4:
-            print("Слишком много персон. Максимум - 4 на стол. ")
-            pass
+            return
+        if persons > self.seats:
+            print("Слишком много персон. ")
+            return
         tables[table] = False
 
