@@ -1,9 +1,16 @@
+k = 0
+
+
 class Table:
+
     def __init__(self, seats):
+        global k
         self.seats = seats
         self.persons = 0
         self.bill = 0
         self.is_reserved = False
+        self.id = k
+        k += 1
 
     def payment(self):
         if self.is_reserved is False:
@@ -16,7 +23,7 @@ class Table:
                 self.is_reserved = False
 
             else:
-                 return
+                return
         print("Столик оплачен и обнулён. ")
         self.persons = 0
         self.bill = 0
@@ -27,7 +34,7 @@ class Table:
             print("За столиком никого нет. ")
             return
         self.bill += add
-        print("К счёту добавленна сумма: ", add)
+        print("К счёту добавлена сумма: ", add)
 
     def reserve(self, persons):
         if self.is_reserved is True:
@@ -40,6 +47,8 @@ class Table:
         self.is_reserved = True
         print("Столик забронирован на ", persons, " человек.")
 
+
 table_1 = Table(4)
 table_1.reserve(3)
+table_2 = Table(3)
 table_1.payment()
