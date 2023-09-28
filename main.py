@@ -1,6 +1,44 @@
 k = 0
 
 
+class Restaurant:
+    def __init__(self):
+        self.seats_num = {}#кол-во мест - список номеров столов
+        self.tables_num = {}#айди стола - объект стола
+        self.total_bill = 0
+        self.menu = [
+            {
+                "name": "cheesecake",
+                "price": 100
+            },
+            {
+                "name": "coffee",
+                "price": 50
+            }
+        ]
+
+    def reserve(self, seats):
+        for i in range(len(self.seats_num)):
+            if self.seats_num == seats:
+
+    def add_payment(self):
+        pass
+
+    def payment(self):
+        pass
+
+    def add_table(self, seats):
+        a = Table(seats)
+        idx = a.id
+        if seats not in self.seats_num:
+            self.seats_num[seats] = {}
+        self.seats_num.update(a)
+
+
+    def delete_table(self):
+        pass
+
+
 class Table:
 
     def __init__(self, seats):
