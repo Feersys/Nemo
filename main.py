@@ -92,6 +92,3 @@ class Table:
         print("Столик забронирован на ", persons, " человек.")
 
 
-R1 = Restaurant
-R1.add_table(0, 5)
-R1.delete_table(0, 5)
