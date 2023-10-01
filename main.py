@@ -1,10 +1,10 @@
-k = 1
+k = 0
 
 
 class Restaurant:
     def __init__(self):
-        self.seats_num = {}#кол-во мест - список номеров столов
-        self.tables_num = {}#айди стола - объект стола
+        self.seats_num = {}  # кол-во мест - список номеров столов
+        self.tables_num = {}  # айди стола - объект стола
         self.total_bill = 0
         self.menu = [
             {
@@ -18,15 +18,29 @@ class Restaurant:
         ]
 
     def reserve(self, seats):
-        pass
-        # for i in range(len(self.seats_num)):
-        #     if self.seats_num == seats:
 
-    def add_payment(self):
-        pass
+        for i in range(self.seats_num[seats]):
+            if self.tables_num[i].is_reserved is False:
+                self.tables_num[i].is_reserved = True
+                print("Теперь этот столик зарезервирован.")
+                continue
+            else:
+                print("Нет свободных столиков на ", seats, "человек.")
 
-    def payment(self):
-        pass
+    def add_payment(self, idx, name):
+        if self.tables_num[idx].is_reserved is False:
+            print("За этим столиком никого нет")
+        a = self.menu[name]
+        price = 0
+        # здесь не получилось достать название и цену
+        self.tables_num[idx].bill += price
+        print("Позиция добавлена в чек")
+
+    def payment(self, idx):
+        self.total_bill += self.tables_num[idx].bill
+        self.tables_num[idx].bill = 0
+        self.tables_num[idx].is_reserved = False
+        print("Столик оплачен. Счёт обнулён")
 
     def add_table(self, seats, other=None):
         a = Table(seats)
@@ -39,8 +53,7 @@ class Restaurant:
 
         self.tables_num[idx] = a
 
-
-    def delete_table(self,seats, idx):
+    def delete_table(self, seats, idx):
         self.seats_num[seats].pop(idx)
         del self.tables_num[idx]
 
@@ -90,5 +103,3 @@ class Table:
         self.persons = persons
         self.is_reserved = True
         print("Столик забронирован на ", persons, " человек.")
-
-
