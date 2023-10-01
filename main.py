@@ -1,4 +1,4 @@
-k = 0
+k = 1
 
 
 class Restaurant:
