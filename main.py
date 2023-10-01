@@ -18,8 +18,9 @@ class Restaurant:
         ]
 
     def reserve(self, seats):
-        for i in range(len(self.seats_num)):
-            if self.seats_num == seats:
+        pass
+        # for i in range(len(self.seats_num)):
+        #     if self.seats_num == seats:
 
     def add_payment(self):
         pass
@@ -27,16 +28,21 @@ class Restaurant:
     def payment(self):
         pass
 
-    def add_table(self, seats):
+    def add_table(self, seats, other=None):
         a = Table(seats)
         idx = a.id
-        if seats not in self.seats_num:
-            self.seats_num[seats] = {}
-        self.seats_num.update(a)
+        if self.seats_num.get(seats) is None:
+            self.seats_num[seats] = {idx}
+        else:
+            other[seats] = idx
+            self.seats_num.update(other)
+
+        self.tables_num[idx] = a
 
 
-    def delete_table(self):
-        pass
+    def delete_table(self,seats, idx):
+        self.seats_num[seats].pop(idx)
+        del self.tables_num[idx]
 
 
 class Table:
@@ -86,7 +92,6 @@ class Table:
         print("Столик забронирован на ", persons, " человек.")
 
 
-table_1 = Table(4)
-table_1.reserve(3)
-table_2 = Table(3)
-table_1.payment()
+R1 = Restaurant
+R1.add_table(0, 5)
+R1.delete_table(0, 5)
