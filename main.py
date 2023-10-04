@@ -3,8 +3,8 @@ k = 0
 
 class Restaurant:
     def __init__(self):
-        self.seats_num = {}  # кол-во мест - список номеров столов
-        self.tables_num = {}  # айди стола - объект стола
+        self.seats_num = dict()  # кол-во мест - список номеров столов
+        self.tables_num = dict()  # айди стола - объект стола
         self.total_bill = 0
         self.menu = [
             {
@@ -28,13 +28,10 @@ class Restaurant:
                 print("Нет свободных столиков на ", seats, "человек.")
 
     def add_payment(self, idx, food):
-        if self.tables_num[idx].is_reserved is False:
-            print("За этим столиком никого нет")
         for i in self.menu:
             if food == self.menu["name"]:
                 price = self.menu["price"]
-        # здесь не получилось достать название и цену
-        self.tables_num[idx].bill += price
+        self.tables_num[idx].add_payment(price)
         print("Позиция добавлена в чек")
 
     def payment(self, idx):
