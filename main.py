@@ -27,18 +27,19 @@ class Restaurant:
             else:
                 print("Нет свободных столиков на ", seats, "человек.")
 
-    def add_payment(self, idx, name):
+    def add_payment(self, idx, food):
         if self.tables_num[idx].is_reserved is False:
             print("За этим столиком никого нет")
-        if name in self.menu:
-
-        price = 0
+        for i in self.menu:
+            if food == self.menu["name"]:
+                price = self.menu["price"]
         # здесь не получилось достать название и цену
         self.tables_num[idx].bill += price
         print("Позиция добавлена в чек")
 
     def payment(self, idx):
-        Table.payment()
+        self.total_bill += self.tables_num[idx].bill
+        self.tables_num[idx].payment()
         print("Столик оплачен. Счёт обнулён")
 
     def add_table(self, seats):
@@ -54,7 +55,8 @@ class Restaurant:
         self.tables_num[idx] = a
 
     def delete_table(self, idx):
-        self.seats_num[self.tables_num[idx].seats].pop(idx)
+        a = int(self.tables_num[idx].seats)
+        self.seats_num[a].delete(idx)
         del self.tables_num[idx]
 
 
@@ -102,4 +104,4 @@ class Table:
 R1 = Restaurant()
 R1.add_table(4)
 print(R1.tables_num)
-R1.delete_table(4)
+R1.delete_table(0)
