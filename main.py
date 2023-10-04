@@ -30,31 +30,31 @@ class Restaurant:
     def add_payment(self, idx, name):
         if self.tables_num[idx].is_reserved is False:
             print("За этим столиком никого нет")
-        a = self.menu[name]
+        if name in self.menu:
+
         price = 0
         # здесь не получилось достать название и цену
         self.tables_num[idx].bill += price
         print("Позиция добавлена в чек")
 
     def payment(self, idx):
-        self.total_bill += self.tables_num[idx].bill
-        self.tables_num[idx].bill = 0
-        self.tables_num[idx].is_reserved = False
+        Table.payment()
         print("Столик оплачен. Счёт обнулён")
 
-    def add_table(self, seats, other=None):
+    def add_table(self, seats):
         a = Table(seats)
+        other = {}
         idx = a.id
-        if self.seats_num.get(seats) is None:
+        if seats not in self.seats_num:
             self.seats_num[seats] = {idx}
         else:
             other[seats] = idx
-            self.seats_num.update(other)
+            self.seats_num[seats].append(idx)
 
         self.tables_num[idx] = a
 
-    def delete_table(self, seats, idx):
-        self.seats_num[seats].pop(idx)
+    def delete_table(self, idx):
+        self.seats_num[self.tables_num].pop(idx)
         del self.tables_num[idx]
 
 
@@ -73,14 +73,8 @@ class Table:
         if self.is_reserved is False:
             print("За столиком никого нет. ")
         if self.bill == 0:
-            print("Нечего оплачивать. Для обнуления столика введите 'Yes' ")
-            if input() == "Yes":
-                self.persons = 0
-                self.bill = 0
-                self.is_reserved = False
+            print("Нечего оплачивать")
 
-            else:
-                return
         print("Столик оплачен и обнулён. ")
         self.persons = 0
         self.bill = 0
@@ -103,3 +97,8 @@ class Table:
         self.persons = persons
         self.is_reserved = True
         print("Столик забронирован на ", persons, " человек.")
+
+
+R1 = Restaurant()
+R1.add_table(4)
+R1.payment(1)
