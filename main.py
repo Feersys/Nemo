@@ -54,7 +54,7 @@ class Restaurant:
         self.tables_num[idx] = a
 
     def delete_table(self, idx):
-        self.seats_num[self.tables_num].pop(idx)
+        self.seats_num[self.tables_num[idx].seats].pop(idx)
         del self.tables_num[idx]
 
 
@@ -101,4 +101,5 @@ class Table:
 
 R1 = Restaurant()
 R1.add_table(4)
-R1.payment(1)
+print(R1.tables_num)
+R1.delete_table(4)
