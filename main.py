@@ -29,7 +29,7 @@ class Restaurant:
 
     def add_payment(self, idx, food):
         for i in self.menu:
-            if food == self.menu["name"]:
+            if self.menu.get["name"] == food:
                 price = self.menu["price"]
         self.tables_num[idx].add_payment(price)
         print("Позиция добавлена в чек")
