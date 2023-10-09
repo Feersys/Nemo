@@ -1,3 +1,6 @@
+import json
+with open("menu.json") as json_file:
+    menu = json.load(json_file)
 k = 0
 
 
@@ -6,16 +9,7 @@ class Restaurant:
         self.seats_num = dict()  # кол-во мест - список номеров столов
         self.tables_num = dict()  # айди стола - объект стола
         self.total_bill = 0
-        self.menu = [
-            {
-                "name": "cheesecake",
-                "price": 100
-            },
-            {
-                "name": "coffee",
-                "price": 50
-            }
-        ]
+        self.menu = menu
 
     def reserve(self, seats):
 
@@ -28,9 +22,11 @@ class Restaurant:
                 print("Нет свободных столиков на ", seats, "человек.")
 
     def add_payment(self, idx, food):
+        price = 0
         for i in self.menu:
-            if self.menu.get["name"] == food:
-                price = self.menu["price"]
+            if food == i["name"]:
+                price = i["price"]
+
         self.tables_num[idx].add_payment(price)
         print("Позиция добавлена в чек")
 
@@ -41,19 +37,17 @@ class Restaurant:
 
     def add_table(self, seats):
         a = Table(seats)
-        other = {}
         idx = a.id
         if seats not in self.seats_num:
-            self.seats_num[seats] = {idx}
+            self.seats_num[seats] = [idx]
         else:
-            other[seats] = idx
             self.seats_num[seats].append(idx)
 
         self.tables_num[idx] = a
 
     def delete_table(self, idx):
         a = int(self.tables_num[idx].seats)
-        self.seats_num[a].delete(idx)
+        self.seats_num[a].pop(self.seats_num[a].index(idx))
         del self.tables_num[idx]
 
 
@@ -71,8 +65,10 @@ class Table:
     def payment(self):
         if self.is_reserved is False:
             print("За столиком никого нет. ")
+            return
         if self.bill == 0:
             print("Нечего оплачивать")
+            return
 
         print("Столик оплачен и обнулён. ")
         self.persons = 0
@@ -100,5 +96,8 @@ class Table:
 
 R1 = Restaurant()
 R1.add_table(4)
+
 print(R1.tables_num)
+R1.add_payment(0, "coffee")
+R1.payment(0)
 R1.delete_table(0)
