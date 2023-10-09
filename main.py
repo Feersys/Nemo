@@ -28,7 +28,7 @@ class Restaurant:
                 price = i["price"]
 
         self.tables_num[idx].add_payment(price)
-        print("Позиция добавлена в чек")
+        print("Позиция добавлена в чек.")
 
     def payment(self, idx):
         self.total_bill += self.tables_num[idx].bill
