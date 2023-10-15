@@ -1,6 +1,5 @@
 import json
-with open("menu.json") as json_file:
-    menu = json.load(json_file)
+
 k = 0
 
 
@@ -9,28 +8,34 @@ class Restaurant:
         self.seats_num = dict()  # кол-во мест - список номеров столов
         self.tables_num = dict()  # айди стола - объект стола
         self.total_bill = 0
+        with open("menu.json") as json_file:
+            menu = json.load(json_file)
         self.menu = menu
 
     def reserve(self, seats):
 
-        for i in range(self.seats_num[seats]):
+        for i in self.seats_num[seats]:
             if self.tables_num[i].is_reserved is False:
                 self.tables_num[i].is_reserved = True
                 print("Теперь этот столик зарезервирован.")
-                continue
-            else:
-                print("Нет свободных столиков на ", seats, "человек.")
+                return
+        print("Нет свободных столиков на ", seats, "человек.")
 
     def add_payment(self, idx, food):
         price = 0
-        for i in self.menu:
-            if food == i["name"]:
-                price = i["price"]
+        if self.tables_num[idx].is_reserved is False:
+            return
+        for category in self.menu:
+            for j in category["payload"]:
+                if food == j["name"]:
+                    price = j["price"]
 
         self.tables_num[idx].add_payment(price)
         print("Позиция добавлена в чек.")
 
     def payment(self, idx):
+        if self.tables_num[idx].is_reserved is False:
+            return
         self.total_bill += self.tables_num[idx].bill
         self.tables_num[idx].payment()
         print("Столик оплачен. Счёт обнулён")
@@ -96,8 +101,8 @@ class Table:
 
 R1 = Restaurant()
 R1.add_table(4)
-
+R1.reserve(4)
 print(R1.tables_num)
-R1.add_payment(0, "coffee")
+R1.add_payment(0, "lemon water")
 R1.payment(0)
 R1.delete_table(0)

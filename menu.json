@@ -1,10 +1,28 @@
 [
-            {
-                "name": "cheesecake",
-                "price": 100
-            },
-            {
-                "name": "coffee",
-                "price": 50
-            }
-        ]
+  {
+    "name": "drinks",
+    "payload": [
+      {
+        "name": "green ice tea",
+        "price": 120
+      },
+      {
+        "name": "lemon water",
+        "price": 100
+      }
+    ]
+  },
+  {
+    "name":"main course",
+    "payload": [
+      {
+        "name": "beef steak",
+        "price": 450
+      },
+      {
+        "name": "baked potatoes",
+        "price": 210
+      }
+    ]
+  }
+]
