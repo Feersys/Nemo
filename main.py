@@ -72,6 +72,24 @@ class Restaurant:
         self.seats_num[a].pop(self.seats_num[a].index(idx))
         del self.tables_num[idx]
 
+    def info(self):
+        s1 = "      Информация о деятельности ресторана "
+        s2 = "Общая выручка составляет: {}".format(self.total_bill)
+        print(s1)
+        print(s2)
+        for i in self.tables_num:
+            s = "Информация по столику №{}".format(i)
+            s21 = "  Столик рассчитан на {} персон".format(self.tables_num[i].seats)
+            s3 = "  Занятость столика на текущий момент: {}".format(self.tables_num[i].is_reserved)
+            print(s)
+            print(s21)
+            print(s3)
+            if self.tables_num[i].is_reserved is True:
+                s31 = "   В текущий момент за столиком обслуживаются {} персон".format(self.tables_num[i].persons)
+                s32 = "   Текущий чек стола составляет: {} рублей".format(self.tables_num[i].bill)
+                print(s31)
+                print(s32)
+
 
 class Table:
 
@@ -120,6 +138,8 @@ R1 = Restaurant()
 R1.add_table(4)
 R1.reserve(4)
 print(R1.tables_num)
+R1.info()
 R1.add_payment(0, "lemon water")
 R1.payment(0)
 R1.delete_table(0)
+
