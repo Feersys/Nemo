@@ -7,11 +7,11 @@ cursor = connection.cursor()
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Tables (
 id INTEGER PRIMARY KEY,
-seats TEXT NOT NULL
-is_reserved INTEGER
+seats TEXT NOT NULL,
+reserved INTEGER
 )
 ''')
-cursor.execute('INSERT INTO Tables (id, seats, is_reserved) VALUES (?, ?, ?)',
+cursor.execute('INSERT INTO Tables (id, seats, reserved) VALUES (?, ?, ?)',
                (0, Restaurant.tables_num[0].seats, Restaurant.tables_num[0].is_reserved))
 
 connection.commit()
